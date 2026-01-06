@@ -3,12 +3,13 @@ plugins {
     signing
     id("com.palantir.git-version") version "4.2.0"
     id("com.vanniktech.maven.publish") version "0.34.0"
+    id("org.jetbrains.dokka-javadoc") version "2.1.0"
 }
 
 group = "com.jamesward"
 
 val gitVersion: groovy.lang.Closure<String> by extra
-version = gitVersion()
+version = gitVersion().removePrefix("v")
 
 kotlin {
     jvmToolchain(21)
