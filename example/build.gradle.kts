@@ -15,7 +15,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
-    implementation("com.jamesward:spring-ai-ui:0.0.1")
+    // for testing the spring-ai-ui library
+    if (file("../settings.gradle.kts").exists()) {
+        implementation("com.jamesward:spring-ai-ui")
+    } else {
+        implementation("com.jamesward:spring-ai-ui:0.0.1")
+    }
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
