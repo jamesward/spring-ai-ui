@@ -1,6 +1,7 @@
 package com.jamesward.springaiui
 
 import com.github.wakingrufus.htmx.HttpVerb
+import com.github.wakingrufus.htmx.HtmxEvent
 import com.github.wakingrufus.htmx.hxPost
 import com.github.wakingrufus.htmx.hxSwap
 import com.github.wakingrufus.htmx.hxTarget
@@ -171,14 +172,14 @@ class ChatUI : SpringHtmxDsl({
                     hxSwap {
                         style(HxSwapType.BeforeEnd)
                     }
-                    attributes["hx-on-htmx-before-request"] = """
+                    hxOn(HtmxEvent.BEFORE_REQUEST, """
                         var msg = document.getElementById('prompt-input').value;
                         var userDiv = document.createElement('div');
                         userDiv.className = 'message user-message';
                         userDiv.innerHTML = '<div class="message-content">' + msg.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>';
                         document.getElementById('messages').appendChild(userDiv);
-                    """.trimIndent()
-                    attributes["hx-on-htmx-after-request"] = "this.reset(); document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;"
+                    """.trimIndent())
+                    hxOn(HtmxEvent.AFTER_REQUEST, "this.reset(); document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;")
                     textInput(name = "prompt") {
                         id = "prompt-input"
                         placeholder = "Type your message..."
